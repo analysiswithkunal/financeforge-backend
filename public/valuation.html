@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valuation - FinanceForge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+     header {
+            background: #fff;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap:0.65rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #1e40af;
+        }
+        .logo i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+            position: relative;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .search-bar input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #1e40af;
+        }
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .sign-in {
+            color: #111827;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .sign-in:hover {
+            color: #1e40af;
+        }
+        .get-started-btn {
+            background: #111827;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .get-started-btn:hover {
+            background: #1f2937;
+            transform: translateY(-1px);
+        }
+         @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 5%;
+            }
+            .search-bar {
+                margin: 0;
+                order: 3;
+                width: 100%;
+                max-width: none;
+            }
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+            .hero {
+                padding: 2rem 5%;
+                text-align: center;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .cta-primary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            .features {
+                margin: -4rem auto 4rem;
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.25rem;
+            }
+            .nav-links {
+                display:inline-flex;
+            }
+            .auth-section {
+                gap: 1rem;
+            }
+        }
+  </style>
+</head>
+
+<body class="min-h-screen text-white bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-900">
+  
+    <header>
+        <div class="logo">
+            <i class="fas fa-chart-line"></i>
+            FinanceForge
+        </div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search companies..." />
+        </div>     
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="valuation.html">Valuation</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+        <div class="auth-section">
+            <a href="signup.html" class="sign-in">Sign In</a>
+            <a href="signup.html" class="get-started-btn">Get Started</a>
+        </div>
+    </header>
+
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.22),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.18),transparent_30%)] pointer-events-none"></div>
+  
+  <main class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <section class="mb-8 text-center">
+      <h1 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-5xl">DCF Valuation Tool</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-sm text-slate-200/80 sm:text-base">Build a clean discounted cash flow model with instant valuation, projection output, and a cash flow trajectory chart.</p>
+    </section>
+
+    <section class="glass rounded-3xl p-4 shadow-2xl shadow-black/20 sm:p-6 lg:p-8">
+      <div class="grid gap-6 lg:grid-cols-2">
+        <div class="space-y-6">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-100">Current Free Cash Flow ($)</label>
+              <input id="fcf" type="number" value="1000000" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-100">Growth Rate for 5 Years (%)</label>
+              <input id="growth" type="number" value="12" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-100">Terminal Growth Rate (%)</label>
+              <input id="terminalGrowth" type="number" value="3" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-100">Discount Rate / WACC (%)</label>
+              <input id="wacc" type="number" value="10" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-100">Net Debt ($)</label>
+              <input id="netDebt" type="number" value="500000" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-medium text-slate-100">Shares Outstanding</label>
+              <input id="shares" type="number" value="1000000" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="mb-2 block text-sm font-medium text-slate-100">Current Market Price ($)</label>
+              <input id="marketPrice" type="number" value="18" class="w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-300 outline-none transition hover:border-white/40 focus:border-blue-300" />
+            </div>
+          </div>
+
+          <button id="calcBtn" class="w-full rounded-2xl bg-white px-6 py-3 font-semibold text-blue-900 shadow-lg shadow-blue-950/30 transition hover:-translate-y-0.5 hover:bg-blue-50">Calculate</button>
+        </div>
+
+        <div class="space-y-6">
+          <div class="glass rounded-3xl p-5 sm:p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm text-slate-200/80">Intrinsic Value per Share</p>
+                <div id="intrinsicValue" class="mt-2 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">$0.00</div>
+              </div>
+              <span id="badge" class="inline-flex items-center rounded-full bg-emerald-400/15 px-4 py-2 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-300/30">Undervalued</span>
+            </div>
+            <p id="comparisonText" class="mt-3 text-sm text-slate-200/80">Based on the current market price, the stock appears undervalued.</p>
+          </div>
+
+          <div class="glass rounded-3xl p-5 sm:p-6">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <h2 class="text-lg font-semibold">Cash Flow Trajectory</h2>
+              <p class="text-sm text-slate-200/70">Projected 5-year free cash flow</p>
+            </div>
+            <div class="h-64">
+              <canvas id="cfChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 glass rounded-3xl p-5 sm:p-6">
+    <h2 class="text-lg font-semibold mb-4">Your Saved Valuations</h2>
+    <div id="historyContainer" class="space-y-3">
+        </div>
+</div>
+
+      <div class="mt-6 glass rounded-3xl p-5 sm:p-6">
+        <div class="mb-4 flex items-center justify-between gap-3">
+          <h2 class="text-lg font-semibold">Projection Table</h2>
+          <p class="text-sm text-slate-200/70">Discounted cash flow schedule</p>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-left text-sm">
+            <thead class="text-slate-200/80">
+              <tr>
+                <th class="py-3 pr-4 font-medium">Year</th>
+                <th class="py-3 pr-4 font-medium">Projected FCF</th>
+                <th class="py-3 pr-4 font-medium">Discount Factor</th>
+                <th class="py-3 pr-4 font-medium">Present Value</th>
+              </tr>
+            </thead>
+            <tbody id="projectionBody" class="divide-y divide-white/10 text-white"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER of the website begins -->
+  <footer class="bg-gradient-to-r from-slate-700 via-blue-900 to-slate-700 text-white">
+    <div class="max-w-7xl mx-5xl px-4 sm:px-6 lg:px-12 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-chart-line text-3xl bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent"></i>
+                    <h3 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                       FinanceForge
+                    </h3>
+                </div>
+                <p class="text-slate-400 leading-relaxed mb-6">
+                    Professional financial valuation and modeling platform. 
+                    DCF analysis, comps, and market insights for serious investors.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-slate-800/50 hover:bg-blue-500 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <i class="fab fa-linkedin-in text-slate-400 hover:text-white"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-slate-800/50 hover:bg-blue-500 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <i class="fab fa-twitter text-slate-400 hover:text-white"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-slate-800/50 hover:bg-indigo-500 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <i class="fab fa-github text-slate-400 hover:text-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-6 text-white">Quick Links</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Valuation Tools
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Financial Modeling
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Market News
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Documentation
+                    </a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-6 text-white">Company</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> About Us
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Careers
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Blog
+                    </a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                        <i class="fas fa-arrow-right w-4"></i> Contact
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500">
+                    © 2026 FinanceForge Inc. All rights reserved.
+                </p>
+                <div class="flex flex-wrap gap-6 text-sm text-slate-400">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Cookies</a>
+                    <a href="#" class="hover:text-white transition-colors">Security</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </footer>
+<script>
+    const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+    const inputs = ['fcf','growth','terminalGrowth','wacc','netDebt','shares','marketPrice'].map(id => document.getElementById(id));
+    const intrinsicValueEl = document.getElementById('intrinsicValue');
+    const badgeEl = document.getElementById('badge');
+    const comparisonTextEl = document.getElementById('comparisonText');
+    const projectionBody = document.getElementById('projectionBody');
+    const ctx = document.getElementById('cfChart').getContext('2d');
+    let chart;
+
+    const fcfEl = document.getElementById('fcf');
+    const growthEl = document.getElementById('growth');
+    const terminalGrowthEl = document.getElementById('terminalGrowth');
+    const waccEl = document.getElementById('wacc');
+    const netDebtEl = document.getElementById('netDebt');
+    const sharesEl = document.getElementById('shares');
+    const marketPriceEl = document.getElementById('marketPrice');
+    const calcBtn = document.getElementById('calcBtn');
+
+    // 1. Your Beautiful UI Update Function
+    function update() {
+      const fcf = parseFloat(fcfEl.value) || 0;
+      const growth = (parseFloat(growthEl.value) || 0) / 100;
+      const terminalGrowth = (parseFloat(terminalGrowthEl.value) || 0) / 100;
+      const wacc = (parseFloat(waccEl.value) || 0) / 100;
+      const netDebt = parseFloat(netDebtEl.value) || 0;
+      const shares = parseFloat(sharesEl.value) || 1;
+      const marketPrice = parseFloat(marketPriceEl.value) || 0;
+      const years = [];
+      const pvRows = [];
+      let projected = fcf;
+      let dcfSum = 0;
+
+      for (let i = 1; i <= 5; i++) {
+        projected *= (1 + growth);
+        const discountFactor = 1 / Math.pow(1 + wacc, i);
+        const pv = projected * discountFactor;
+        dcfSum += pv;
+        years.push(projected);
+        pvRows.push({ year: i, projected, discountFactor, pv });
+      }
+
+      const terminalFCF = projected * (1 + terminalGrowth);
+      const terminalValue = terminalFCF / (wacc - terminalGrowth);
+      const terminalPV = terminalValue / Math.pow(1 + wacc, 5);
+      const equityValue = dcfSum + terminalPV - netDebt;
+      const intrinsic = equityValue / shares;
+
+      intrinsicValueEl.textContent = fmt.format(intrinsic);
+      const diff = intrinsic - marketPrice;
+      const undervalued = diff >= 0;
+      badgeEl.textContent = undervalued ? 'Undervalued' : 'Overvalued';
+      badgeEl.className = undervalued
+        ? 'inline-flex items-center rounded-full bg-emerald-400/15 px-4 py-2 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-300/30'
+        : 'inline-flex items-center rounded-full bg-rose-400/15 px-4 py-2 text-sm font-semibold text-rose-300 ring-1 ring-rose-300/30';
+      comparisonTextEl.textContent = undervalued
+        ? `Intrinsic value is ${fmt.format(Math.abs(diff))} above the market price.`
+        : `Intrinsic value is ${fmt.format(Math.abs(diff))} below the market price.`;
+
+      projectionBody.innerHTML = pvRows.map(r => `
+        <tr>
+          <td class="py-3 pr-4">${r.year}</td>
+          <td class="py-3 pr-4">${fmt.format(r.projected)}</td>
+          <td class="py-3 pr-4">${r.discountFactor.toFixed(4)}</td>
+          <td class="py-3 pr-4">${fmt.format(r.pv)}</td>
+        </tr>
+      `).join('') + `
+        <tr class="border-t border-white/20 text-slate-100">
+          <td class="py-3 pr-4 font-semibold">Terminal</td>
+          <td class="py-3 pr-4">${fmt.format(terminalFCF)}</td>
+          <td class="py-3 pr-4">0.6209</td>
+          <td class="py-3 pr-4 font-semibold">${fmt.format(terminalPV)}</td>
+        </tr>`;
+
+      const labels = ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'];
+      const data = years;
+      if (chart) chart.destroy();
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Projected FCF',
+            data,
+            borderColor: 'rgba(96, 165, 250, 1)',
+            backgroundColor: 'rgba(96, 165, 250, 0.18)',
+            tension: 0.35,
+            fill: true,
+            pointBackgroundColor: 'white',
+            pointBorderColor: 'rgba(96, 165, 250, 1)',
+            pointRadius: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: 'rgba(226,232,240,0.9)' } }
+          },
+          scales: {
+            x: { ticks: { color: 'rgba(226,232,240,0.8)' }, grid: { color: 'rgba(255,255,255,0.08)' } },
+            y: { ticks: { color: 'rgba(226,232,240,0.8)', callback: v => '$' + Number(v).toLocaleString() }, grid: { color: 'rgba(255,255,255,0.08)' } }
+          }
+        }
+      });
+    }
+
+    // 2. Fixed Backend Logic (Added JWT Token & Refresh trigger)
+    function calculateDCF() {
+        const cashFlow = parseFloat(document.getElementById('fcf').value);
+        const growth = parseFloat(document.getElementById('growth').value);
+        const discount = parseFloat(document.getElementById('wacc').value);
+        const years = 5; 
+        
+        // Grab a name from the search bar or default it
+        const searchInput = document.querySelector('.search-bar input').value;
+        const companyName = searchInput.trim() ? searchInput : "Saved Valuation";
+        
+        const token = localStorage.getItem('financeForgeToken');
+
+        fetch('http://localhost:5000/api/valuation/dcf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Critical: Proves user identity to backend
+            },
+            body: JSON.stringify({
+                companyName: companyName, // Sends a name to save
+                startingCashFlow: cashFlow,
+                growthRate: growth,
+                discountRate: discount,
+                years: years
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Backend Valuation Success:", data);
+            loadValuationHistory(); // Force a refresh of the history panel!
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // 3. Bind BOTH functions to the Calculate button
+    calcBtn.addEventListener('click', () => {
+        update(); 
+        calculateDCF(); 
+    });
+
+    inputs.forEach(i => i.addEventListener('input', update));
+    update();
+
+    // jQuery navbar scroll
+    $(document).ready(function() {
+        let lastScrollTop = 0;
+        $(window).scroll(function() {
+            let scrollTop = $(this).scrollTop();
+            let header = $('header');
+            if (scrollTop > 10 && scrollTop > lastScrollTop) {
+                header.css({
+                    'transform': 'translateY(-100%)',
+                    'transition': 'transform 0.3s ease-in-out'
+                });
+            } 
+            else {
+                header.css({
+                    'transform': 'translateY(0)',
+                    'transition': 'transform 0.3s ease-in-out'
+                });
+            }
+            lastScrollTop = scrollTop;
+        });
+    });
+
+    // 4. Fixed History Functions (Handles arrays/objects safely)
+    async function loadValuationHistory() {
+      const token = localStorage.getItem('financeForgeToken');
+      
+      if (!token) {
+          console.log("User not logged in, cannot fetch history.");
+          return;
+      }
+
+      try {
+          const response = await fetch('http://localhost:5000/api/valuation/history', {
+              method: 'GET',
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+              }
+          });
+
+          const data = await response.json();
+          displayHistory(data);
+      } catch (error) {
+          console.error('Error fetching history:', error);
+      }
+    }
+    
+    loadValuationHistory();
+    
+    function displayHistory(data) {
+        // Ensures we grab the array whether the backend sends [...] or { valuations: [...] }
+        const valuations = Array.isArray(data) ? data : (data.valuations || data.history || []);
+        
+        const container = document.getElementById('historyContainer');
+        
+        if (!valuations || valuations.length === 0) {
+            container.innerHTML = '<p class="text-slate-400">No saved valuations yet.</p>';
+            return;
+        }
+
+        container.innerHTML = valuations.map(val => {
+            // Safely grab property names whether your DB uses 'totalIntrinsicValue' or 'intrinsicValue'
+            const name = val.companyName || 'Saved Valuation';
+            const value = val.totalIntrinsicValue || val.intrinsicValue || 0;
+            
+            return `
+            <div class="bg-white/10 p-4 rounded-xl border border-white/20 flex justify-between items-center mb-3">
+                <span class="font-medium text-slate-200">${name}</span>
+                <span class="text-emerald-400 font-bold">$${Number(value).toLocaleString()}</span>
+            </div>
+            `;
+        }).join('');
+    }
+  </script>
+</body>
+</html>

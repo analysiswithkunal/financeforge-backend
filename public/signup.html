@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .bg-finance-forge {
+      background: linear-gradient(135deg, #0a2463 0%, #1e3a8a 50%, #0f172a 100%);
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    /* Custom classes for validation states */
+    .form-error {
+      border-color: #ef4444 !important; /* Tailwind red-500 */
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3) !important;
+    }
+    .form-success {
+      border-color: #22c55e !important; /* Tailwind green-500 */
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3) !important;
+    }
+  </style>
+</head>
+<body class="bg-finance-forge text-white">
+
+  <div class="absolute inset-0 opacity-10"></div>
+
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div class="glass-card w-full max-w-md rounded-2xl overflow-hidden relative z-10">
+      <div class="flex border-b border-white/20">
+        <button
+          id="loginTab"
+          class="flex-1 px-6 py-4 text-sm font-medium text-center transition hover:bg-white/5 data-[active=true]:bg-white/10 data-[active=true]:text-blue-300"
+          data-active="true"
+        >
+          Login
+        </button>
+        <button
+          id="signupTab"
+          class="flex-1 px-6 py-4 text-sm font-medium text-center transition hover:bg-white/5 data-[active=true]:bg-white/10 data-[active=true]:text-blue-300"
+          data-active="false"
+        >
+          Sign Up
+        </button>
+      </div>
+
+      <div id="loginView" class="p-6">
+        <h1 class="text-2xl font-bold mb-1">Welcome to FinanceForge</h1>
+        <p class="text-sm opacity-80 mb-6">Log in to manage your financial models & analytics.</p>
+
+        <form id="loginForm" class="space-y-4">
+          <div>
+            <label for="loginEmail" class="block text-sm font-medium mb-1">Email</label>
+            <input 
+              type="email"
+              id="loginEmail"
+              name="email"
+              class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="you@financeforge.com"
+              required
+            />
+            <p id="loginEmailMsg" class="mt-1 text-xs text-red-300 opacity-0 transition h-4"></p>
+          </div>
+
+          <div>
+            <label for="loginPassword" class="block text-sm font-medium mb-1">Password</label>
+            <input 
+              type="password"
+              id="loginPassword"
+              name="password"
+              class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="••••••••"
+              required
+            />
+            <p id="loginPasswordMsg" class="mt-1 text-xs text-red-300 opacity-0 transition h-4"></p>
+          </div>
+
+          <div class="flex justify-end">
+            <a href="#" class="text-sm text-blue-300 hover:underline">
+              Forgot Password?
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold rounded-lg py-3 transition shadow-lg hover:shadow-xl"
+          >
+            Log In
+          </button>
+        </form>
+
+        <div class="mt-6">
+          <p class="text-xs text-center text-gray-300 mb-3">Or continue with</p>
+          <div class="flex justify-center space-x-4">
+            <button class="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition">
+              <i class="fab fa-google text-white text-lg"></i>
+            </button>
+            <button class="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition">
+              <i class="fab fa-linkedin-in text-white text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="signupView" class="p-6 hidden">
+        <h1 class="text-2xl font-bold mb-1">Create your FinanceForge account</h1>
+        <p class="text-sm opacity-80 mb-6">Start modeling your finances in minutes.</p>
+
+        <form id="signupForm" class="space-y-4">
+          <div>
+            <label for="signupName" class="block text-sm font-medium mb-1">Name</label>
+            <input 
+              type="text"
+              id="signupName"
+              name="name"
+              class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="Kunal Sharma"
+              required
+            />
+            <p id="signupNameMsg" class="mt-1 text-xs text-red-300 opacity-0 transition h-4"></p>
+          </div>
+
+          <div>
+            <label for="signupEmail" class="block text-sm font-medium mb-1">Email</label>
+            <input 
+              type="email"
+              id="signupEmail"
+              name="email"
+              class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="you@financeforge.com"
+              required
+            />
+            <p id="signupEmailMsg" class="mt-1 text-xs text-red-300 opacity-0 transition h-4"></p>
+          </div>
+
+          <div>
+            <label for="signupPassword" class="block text-sm font-medium mb-1">Password</label>
+            <input 
+              type="password"
+              id="signupPassword"
+              name="password"
+              class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="••••••••"
+              required
+            />
+            <p id="signupPasswordMsg" class="mt-1 text-xs text-red-300 opacity-0 transition h-4"></p>
+          </div>
+
+          <div>
+            <label for="confirmPassword" class="block text-sm font-medium mb-1">Confirm Password</label>
+            <input 
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+              placeholder="••••••••"
+              required
+            />
+            <p id="confirmPasswordMsg" class="mt-1 text-xs text-red-300 opacity-0 transition h-4"></p>
+          </div>
+          <div id="otpSection" class="hidden space-y-4 pt-4 border-t border-white/20">
+            <p class="text-sm text-blue-200">Please check your email for the 6-digit verification code.</p>
+            <div>
+              <label for="signupOtp" class="block text-sm font-medium mb-1">Enter OTP</label>
+              <input 
+                type="text"
+                id="signupOtp"
+                class="w-full px-4 py-3 rounded-lg border border-transparent text-gray-700 bg-white/90 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                placeholder="123456"
+              />
+            </div>
+            </div>
+          <button
+            type="submit"
+            class="w-full bg-white text-blue-700 hover:bg-blue-50 font-semibold rounded-lg py-3 transition shadow-lg hover:shadow-xl">
+            Start Free Trial
+          </button>
+        </form>
+
+        <div class="mt-6">
+          <p class="text-xs text-center text-gray-300 mb-3">Or continue with</p>
+          <div class="flex justify-center space-x-4">
+            <button class="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition">
+              <i class="fab fa-google text-white text-lg"></i>
+            </button>
+            <button class="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition">
+              <i class="fab fa-linkedin-in text-white text-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Email regex
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Password regex (min 8 chars, at least 1 special char)
+    const PASSWORD_REGEX = /^(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+
+    // Helper to set message + input style
+    function setFieldStatus(inputId, msgId, isValid, msg) {
+      const input = document.getElementById(inputId);
+      const msgEl = document.getElementById(msgId);
+
+      input.classList.remove("form-error", "form-success");
+      if (!isValid) {
+        msgEl.textContent = msg;
+        msgEl.classList.remove("opacity-0");
+        input.classList.add("form-error");
+      } else {
+        msgEl.textContent = "";
+        msgEl.classList.add("opacity-0");
+        input.classList.add("form-success");
+      }
+    }
+
+    // Sign‑Up validations
+    function validateSignup() {
+      const name = document.getElementById("signupName").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const password = document.getElementById("signupPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      let valid = true;
+
+      // Name
+      if (!name) {
+        setFieldStatus("signupName", "signupNameMsg", false, "Name is required");
+        valid = false;
+      } else {
+        setFieldStatus("signupName", "signupNameMsg", true);
+      }
+
+      // Email
+      if (!email) {
+        setFieldStatus("signupEmail", "signupEmailMsg", false, "Email is required");
+        valid = false;
+      } else if (!EMAIL_REGEX.test(email)) {
+        setFieldStatus("signupEmail", "signupEmailMsg", false, "Email format is invalid");
+        valid = false;
+      } else {
+        setFieldStatus("signupEmail", "signupEmailMsg", true);
+      }
+
+      // Password
+      if (!password) {
+        setFieldStatus("signupPassword", "signupPasswordMsg", false, "Password is required");
+        valid = false;
+      } else if (!PASSWORD_REGEX.test(password)) {
+        setFieldStatus("signupPassword", "signupPasswordMsg", false, "Min 8 chars, 1 special char");
+        valid = false;
+      } else {
+        setFieldStatus("signupPassword", "signupPasswordMsg", true);
+      }
+
+      // Confirm password
+      if (!confirmPassword) {
+        setFieldStatus("confirmPassword", "confirmPasswordMsg", false, "Please confirm password");
+        valid = false;
+      } else if (confirmPassword !== password) {
+        setFieldStatus("confirmPassword", "confirmPasswordMsg", false, "Passwords do not match");
+        valid = false;
+      } else {
+        setFieldStatus("confirmPassword", "confirmPasswordMsg", true);
+      }
+
+      return valid;
+    }
+
+    // Login validations (simplified)
+    function validateLogin() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      let valid = true;
+
+      if (!email) {
+        setFieldStatus("loginEmail", "loginEmailMsg", false, "Email is required");
+        valid = false;
+      } else if (!EMAIL_REGEX.test(email)) {
+        setFieldStatus("loginEmail", "loginEmailMsg", false, "Email format is invalid");
+        valid = false;
+      } else {
+        setFieldStatus("loginEmail", "loginEmailMsg", true);
+      }
+
+      if (!password) {
+        setFieldStatus("loginPassword", "loginPasswordMsg", false, "Password is required");
+        valid = false;
+      } else {
+        setFieldStatus("loginPassword", "loginPasswordMsg", true);
+      }
+
+      return valid;
+    }
+
+    // Tab switcher
+    function toggleView(viewId) {
+      document.getElementById("loginView").classList.toggle("hidden", viewId !== "login");
+      document.getElementById("signupView").classList.toggle("hidden", viewId !== "signup");
+      document.getElementById("loginTab").setAttribute("data-active", viewId === "login");
+      document.getElementById("signupTab").setAttribute("data-active", viewId === "signup");
+    }
+
+    document.getElementById("loginTab").addEventListener("click", () => toggleView("login"));
+    document.getElementById("signupTab").addEventListener("click", () => toggleView("signup"));
+
+    // Signup form submit
+   // Variable to track what stage of signup the user is in
+let isOtpStage = false;
+
+document.getElementById("signupForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById("signupEmail").value.trim();
+
+  // STAGE 1: Submit Details & Request OTP
+  if (!isOtpStage) {
+    if (validateSignup()) {
+      const name = document.getElementById("signupName").value.trim();
+      const password = document.getElementById("signupPassword").value;
+
+      fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, password: password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'OTP sent to your email') {
+          // Show the OTP input and change button text
+          document.getElementById("otpSection").classList.remove("hidden");
+          e.target.querySelector('button[type="submit"]').textContent = "Verify & Login";
+          isOtpStage = true; // Move to the next stage
+          alert("Code sent! Check your email.");
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch(err => {
+        console.error("Signup failed:", err);
+        alert("Something went wrong. Please try again.");
+      });
+    }
+  } 
+  
+  // STAGE 2: Submit OTP for Verification
+  else {
+    const otp = document.getElementById("signupOtp").value.trim();
+    
+    if (!otp) return alert("Please enter the OTP");
+
+    fetch('http://localhost:5000/api/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, otp: otp })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.token) {
+        alert("Account verified successfully!");
+        localStorage.setItem('financeForgeToken', data.token);
+        window.location.href = 'index.html';
+      } else {
+        alert("Error: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Verification failed:", err);
+      alert("Something went wrong verifying the OTP.");
+    });
+  }
+});
+// Login form submit
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      if (validateLogin()) {
+        // 1. Grab the values from the input fields
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+
+        // 2. Send the data to your Node.js backend using Fetch
+        fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email: email, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+          // 3. Handle the server's response
+          if (data.token) {
+            alert("Login successful!");
+            
+            // Save the secure JWT token to the browser's local storage
+            localStorage.setItem('financeForgeToken', data.token);
+            
+            // Redirect the user to the main tool (e.g., Valuation page)
+            window.location.href = 'index.html';
+          } else {
+            // Show the error message (e.g., "Invalid credentials")
+            alert("Error: " + data.message);
+          }
+        })
+        .catch(err => {
+          console.error("Login failed:", err);
+          alert("Something went wrong. Please try again.");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
