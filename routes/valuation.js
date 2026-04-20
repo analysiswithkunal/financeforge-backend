@@ -4,7 +4,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 // Import your Valuation model (Created in Step 1)
-const Valuation = require('../models/Valuation');
+const Valuation = require('../models/valuation');
 
 // Middleware to verify the user's secure token
 const verifyToken = (req, res, next) => {

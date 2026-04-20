@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true }, // We will store the hashed version
   createdAt: { type: Date, default: Date.now },
-  // New OTP Fields
   isVerified: { type: Boolean, default: false },
   otp: { type: String },
   otpExpires: { type: Date }

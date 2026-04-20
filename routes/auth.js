@@ -83,7 +83,6 @@ router.post('/verify-otp', async (req, res) => {
 
     // 4. Generate JWT Token (Log them in automatically)
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
     res.status(200).json({ token, message: 'Email verified and logged in successfully' });
   } catch (error) {
     console.error(error);
