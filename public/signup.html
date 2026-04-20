@@ -330,7 +330,7 @@ document.getElementById("signupForm").addEventListener("submit", (e) => {
       const name = document.getElementById("signupName").value.trim();
       const password = document.getElementById("signupPassword").value;
 
-      fetch('http://localhost:5000/api/auth/signup', {
+      fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, email: email, password: password })
@@ -360,7 +360,7 @@ document.getElementById("signupForm").addEventListener("submit", (e) => {
     
     if (!otp) return alert("Please enter the OTP");
 
-    fetch('http://localhost:5000/api/auth/verify-otp', {
+    fetch('/api/auth/verify-otp', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, otp: otp })
@@ -391,7 +391,7 @@ document.getElementById("signupForm").addEventListener("submit", (e) => {
         const password = document.getElementById("loginPassword").value;
 
         // 2. Send the data to your Node.js backend using Fetch
-        fetch('http://localhost:5000/api/auth/login', {
+        fetch('/api/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

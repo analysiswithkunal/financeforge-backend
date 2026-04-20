@@ -479,7 +479,7 @@
         
         const token = localStorage.getItem('financeForgeToken');
 
-        fetch('http://localhost:5000/api/valuation/dcf', {
+        fetch('/api/valuation/dcf', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -542,7 +542,7 @@
       }
 
       try {
-          const response = await fetch('http://localhost:5000/api/valuation/history', {
+          const response = await fetch('/api/valuation/history', {
               method: 'GET',
               headers: {
                   'Authorization': `Bearer ${token}`,
