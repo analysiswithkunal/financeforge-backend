@@ -15,7 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Allows server to accept JSON data from the frontend
 app.use(express.static(path.join(__dirname, 'public'))); // Serves your HTML files
-app.use(express.static('public'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -41,6 +40,11 @@ const valRoutes = require('./routes/valuation');
 app.use('/api/auth', authRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/valuation', valRoutes);
+// Catch-all route to serve the main HTML file on the root URL
+app.get('/', (req, res) => {
+    // IMPORTANT: Change 'signup.html' if your main page has a different name (like 'index.html')
+    res.sendFile(path.join(__dirname, 'public', 'index.html')); 
+});
 
 // Start the server
 const PORT = process.env.PORT || 5000;
