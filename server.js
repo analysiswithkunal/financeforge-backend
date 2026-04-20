@@ -15,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Allows server to accept JSON data from the frontend
 app.use(express.static(path.join(__dirname, 'public'))); // Serves your HTML files
+app.use(express.static('public'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
